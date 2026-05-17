@@ -5,8 +5,8 @@ import Cookies from 'js-cookie';
 
 const AuthContext = createContext();
 
-// API base URL
-const API_URL = process.env.NEXT_PUBLIC_BACKEND_URL || 'http://localhost:3001';
+// API base URL - Use serverless functions on same domain
+const API_URL = process.env.NEXT_PUBLIC_BACKEND_URL || '';
 
 export function AuthProvider({ children }) {
   const [user, setUser] = useState(null);
