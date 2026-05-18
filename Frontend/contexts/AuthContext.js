@@ -32,7 +32,7 @@ export function AuthProvider({ children }) {
         setCredits(userData.credits || 0);
         
         // Verify token is still valid and get updated credits
-        const response = await axios.get(`${API_URL}/auth/me`, {
+        const response = await axios.get(`${API_URL}/api/auth/me`, {
           headers: {
             Authorization: `Bearer ${storedToken}`,
           },
@@ -56,8 +56,8 @@ export function AuthProvider({ children }) {
 
   // Login with Google
   const loginWithGoogle = () => {
-    // Redirect to backend Google OAuth endpoint
-    window.location.href = `${API_URL}/auth/google`;
+    // Redirect to serverless Google OAuth endpoint
+    window.location.href = `${API_URL}/api/auth/google`;
   };
 
   // Handle OAuth callback (called from callback page)
@@ -76,7 +76,7 @@ export function AuthProvider({ children }) {
   const logout = async () => {
     try {
       if (token) {
-        await axios.get(`${API_URL}/auth/logout`, {
+        await axios.get(`${API_URL}/api/auth/logout`, {
           headers: {
             Authorization: `Bearer ${token}`,
           },
@@ -98,7 +98,7 @@ export function AuthProvider({ children }) {
   // Get user's analysis history
   const getHistory = async () => {
     try {
-      const response = await axios.get(`${API_URL}/auth/history`, {
+      const response = await axios.get(`${API_URL}/api/auth/history`, {
         headers: {
           Authorization: `Bearer ${token}`,
         },
@@ -113,7 +113,7 @@ export function AuthProvider({ children }) {
   // Save analysis to history
   const saveAnalysis = async (analysisData) => {
     try {
-      await axios.post(`${API_URL}/auth/save-analysis`, analysisData, {
+      await axios.post(`${API_URL}/api/auth/save-analysis`, analysisData, {
         headers: {
           Authorization: `Bearer ${token}`,
         },
@@ -128,7 +128,7 @@ export function AuthProvider({ children }) {
   // Get user's credits
   const getCredits = async () => {
     try {
-      const response = await axios.get(`${API_URL}/auth/credits`, {
+      const response = await axios.get(`${API_URL}/api/auth/credits`, {
         headers: {
           Authorization: `Bearer ${token}`,
         },
@@ -146,7 +146,7 @@ export function AuthProvider({ children }) {
   // Use one credit
   const useCredit = async () => {
     try {
-      const response = await axios.post(`${API_URL}/auth/use-credit`, {}, {
+      const response = await axios.post(`${API_URL}/api/auth/use-credit`, {}, {
         headers: {
           Authorization: `Bearer ${token}`,
         },
