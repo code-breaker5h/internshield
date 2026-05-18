@@ -23,6 +23,14 @@ export default async function handler(req, res) {
   }
 
   try {
+    // Log for debugging (remove in production)
+    console.log('Attempting token exchange with:', {
+      client_id: GOOGLE_CLIENT_ID?.substring(0, 20) + '...',
+      redirect_uri: GOOGLE_REDIRECT_URI,
+      has_secret: !!GOOGLE_CLIENT_SECRET,
+      has_code: !!code
+    });
+
     // Exchange code for tokens
     const tokenResponse = await axios.post('https://oauth2.googleapis.com/token', {
       code,
@@ -57,7 +65,12 @@ export default async function handler(req, res) {
     // Redirect to callback page with token
     res.redirect(`/auth/callback?token=${token}`);
   } catch (error) {
-    console.error('OAuth error:', error.response?.data || error.message);
-    res.redirect('/login?error=oauth_failed');
+    console.error('OAuth error details:', {
+      message: error.message,
+      response: error.response?.data,
+      status: error.response?.status
+    });
+    const errorMsg = error.response?.data?.error || 'oauth_failed';
+    res.redirect(`/login?error=${errorMsg}`);
   }
 }
