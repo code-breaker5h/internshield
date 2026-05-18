@@ -4,7 +4,7 @@ export default async function handler(req, res) {
   const GOOGLE_REDIRECT_URI = process.env.GOOGLE_REDIRECT_URI || `${process.env.NEXT_PUBLIC_BASE_URL || 'http://localhost:3000'}/api/auth/google/callback`;
 
   if (!GOOGLE_CLIENT_ID) {
-    return res.status(500).json({ error: 'Google OAuth not configured' });
+    return res.status(500).json({ error: 'Google OAuth not configured. Please set GOOGLE_CLIENT_ID in environment variables.' });
   }
 
   // Build Google OAuth URL
