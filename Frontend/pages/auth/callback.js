@@ -4,7 +4,7 @@ import { useRouter } from 'next/router';
 import { useAuth } from '../../contexts/AuthContext';
 import axios from 'axios';
 
-const API_URL = process.env.NEXT_PUBLIC_BACKEND_URL || 'http://localhost:3001';
+const API_URL = process.env.NEXT_PUBLIC_BACKEND_URL || '';
 
 export default function AuthCallback() {
   const router = useRouter();
@@ -23,7 +23,7 @@ export default function AuthCallback() {
 
     if (token) {
       // Fetch user data from backend using the token
-      axios.get(`${API_URL}/auth/me`, {
+      axios.get(`${API_URL}/api/auth/me`, {
         headers: { Authorization: `Bearer ${token}` },
       })
         .then((response) => {
